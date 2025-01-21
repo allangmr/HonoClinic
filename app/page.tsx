@@ -4,7 +4,7 @@ export default function Home() {
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
-          <Image src="/images/logo.svg" alt="logo" width={200} height={200} />
+          <Image src="/assets/icons/logo-full.svg" alt="HonoClinic Logo" width={1000} height={1000} className="mb-12 h-10 w-fit" />
         </div>
       </section>
     </div>
