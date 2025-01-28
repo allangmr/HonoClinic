@@ -65,60 +65,108 @@ const RegisterForm = ({user}: {user: User}) => {
         />
         <div className="flex flex-col gap-6 xl:flex-row">
             <CustomFormField 
+              fieldType={FormFieldType.Input}
+              control={form.control} 
+              className="xl:w-1/2"
+              name="email"
+              label="Email"
+              placeholder="jhondoe@allan.com"
+              iconSrc="/assets/icons/email.svg"
+              iconAlt="email"
+            />
+            <CustomFormField 
+              fieldType={FormFieldType.Phone_Input}
+              control={form.control} 
+              className="xl:w-1/2"
+              name="phone"
+              label="Phone Number"
+              placeholder="(555) 123-4567"
+            />
+        </div>
+
+        
+        <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormField 
+              fieldType={FormFieldType.Date_Picker}
+              control={form.control} 
+              className="xl:w-1/2"
+              name="birthDate"
+              label="Date of Birth"
+            />
+            <CustomFormField 
+              fieldType={FormFieldType.Skeleton}
+              control={form.control} 
+              name="gender"
+              label="Gender"
+              className="xl:w-1/2"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              renderSkeleton={(field: any) => (
+                  <FormControl>
+                      <RadioGroup 
+                          className="flex h-11 gap-6 xl:justify-between" 
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                      >
+                          {GenderOptions.map((option) => (
+                                  <div key={option} className="radio-group">
+                                      <RadioGroupItem value={option} id={option} />
+                                      <Label 
+                                          htmlFor={option} 
+                                          className="cursor-pointer">
+                                              {option}
+                                      </Label>
+                                  </div>
+                              )
+                          )}
+                      </RadioGroup>
+                  </FormControl>
+              )}
+            />
+        </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormField 
+              fieldType={FormFieldType.Input}
+              control={form.control} 
+              className="xl:w-1/2"
+              name="address"
+              label="Address"
+              placeholder="14th Street, New York"
+            />
+            <CustomFormField 
+              fieldType={FormFieldType.Input}
+              control={form.control}
+              className="xl:w-1/2"
+              name="occupation"
+              label="Occupation"
+              placeholder="Software Engineer"
+            />
+        </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField 
             fieldType={FormFieldType.Input}
             control={form.control} 
-            name="email"
-            label="Email"
-            placeholder="jhondoe@allan.com"
-            iconSrc="/assets/icons/email.svg"
-            iconAlt="email"
-            />
-            <CustomFormField 
+            className="xl:w-1/2"
+            name="emergencyContactName"
+            label="Emergency Contact Name"
+            placeholder="Guardian's Name"
+          />
+          <CustomFormField 
             fieldType={FormFieldType.Phone_Input}
-            control={form.control} 
-            name="phone"
-            label="Phone Number"
+            control={form.control}
+            className="xl:w-1/2"
+            name="emergencyContactNumber"
+            label="Emergency Contact Number"
             placeholder="(555) 123-4567"
-            />
+          />
         </div>
-        <div className="flex flex-col gap-6 xl:flex-row">
-            <CustomFormField 
-            fieldType={FormFieldType.Date_Picker}
-            control={form.control} 
-            name="birthDate"
-            label="Date of Birth"
-            />
-            <CustomFormField 
-            fieldType={FormFieldType.Skeleton}
-            control={form.control} 
-            name="gender"
-            label="Gender"
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            renderSkeleton={(field: any) => (
-                <FormControl>
-                    <RadioGroup 
-                        className="flex h-11 gap-6 xl:justify-between" 
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                    >
-                        {GenderOptions.map((option) => (
-                                <div key={option} className="radio-group">
-                                    <RadioGroupItem value={option} id={option} />
-                                    <Label 
-                                        htmlFor={option} 
-                                        className="cursor-point">
-                                            {option}
-                                    </Label>
-                                </div>
-                            )
-                        )}
-                    </RadioGroup>
-                </FormControl>
-            )}
-            />
-        </div>
-        <div className="flex flex-col gap-6 xl:flex-row">
-        </div>
+
+        <section className="space-y-6">
+            <div className="mb-9 space-y-1">
+                <h2 className="sub-header">Medical Information</h2>
+            </div>
+        </section>
         <div className="flex flex-col gap-6 xl:flex-row">
         </div>
         <div className="flex flex-col gap-6 xl:flex-row">

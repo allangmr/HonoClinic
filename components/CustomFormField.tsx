@@ -19,6 +19,7 @@ import "react-datepicker/dist/react-datepicker.css";
 interface CustomProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     control: Control<any>,
+    className?: string,
     fieldType: FormFieldType,
     name: string,
     label?: string,
@@ -34,7 +35,7 @@ interface CustomProps {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RenderField = ({field, props} : {field: { value: string; onChange: (value: any) => void; name: string; }; props: CustomProps}) => {
-    const {fieldType, iconSrc, iconAlt, placeholder, showTimeSelect, dateFormat} = props;
+    const {fieldType, iconSrc, iconAlt, placeholder, showTimeSelect, dateFormat, renderSkeleton} = props;
     switch (fieldType) {
         case FormFieldType.Input:
             return (
@@ -83,7 +84,7 @@ const RenderField = ({field, props} : {field: { value: string; onChange: (value:
                     />
                     <FormControl>
                          <DatePicker 
-                            selected={field.value} 
+                            selected={field.value ? new Date(field.value) : null} 
                             onChange={(date) => field.onChange(date)} 
                             dateFormat={dateFormat ?? 'MM/dd/yyyy'}
                             showTimeSelect={showTimeSelect ?? false}
@@ -93,6 +94,8 @@ const RenderField = ({field, props} : {field: { value: string; onChange: (value:
                     </FormControl>
                 </div>
             )
+        case FormFieldType.Skeleton:
+            return renderSkeleton ? renderSkeleton(field) : null 
         default:
             break;
     }
@@ -100,13 +103,13 @@ const RenderField = ({field, props} : {field: { value: string; onChange: (value:
 
 
 const CustomFormField = (props: CustomProps) => {
-    const { control, fieldType, name, label } = props;
+    const { control, fieldType, name, label, className } = props;
     return (
         <FormField
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem>
+                <FormItem className={className}>
                     {fieldType !== FormFieldType.Checkbox && label && (
                         <FormLabel>{label}</FormLabel>
                     )}
