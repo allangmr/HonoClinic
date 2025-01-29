@@ -16,6 +16,7 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Select, SelectContent, SelectValue, SelectTrigger } from "./ui/select"
 interface CustomProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     control: Control<any>,
@@ -94,8 +95,21 @@ const RenderField = ({field, props} : {field: { value: string; onChange: (value:
                     </FormControl>
                 </div>
             )
-        case FormFieldType.Skeleton:
-            return renderSkeleton ? renderSkeleton(field) : null 
+        case FormFieldType.Skeleton: return renderSkeleton ? renderSkeleton(field) : null 
+        case FormFieldType.Select: return (
+            <FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl className="shad-select-trigger">
+                        <SelectTrigger>
+                            <SelectValue placeholder={placeholder} />
+                        </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="shad-select-content">
+                        {props.children}
+                    </SelectContent>
+                </Select>
+            </FormControl>
+        )
         default:
             break;
     }
@@ -103,7 +117,7 @@ const RenderField = ({field, props} : {field: { value: string; onChange: (value:
 
 
 const CustomFormField = (props: CustomProps) => {
-    const { control, fieldType, name, label, className } = props;
+    const { control, fieldType, name, label, className = "xl:w-1/2" } = props;
     return (
         <FormField
             control={control}

@@ -12,8 +12,10 @@ import { useRouter } from "next/navigation"
 import { createUser } from "@/lib/actions/patient.actions"
 import { FormFieldType } from "./PatientForm"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
-import { GenderOptions } from "@/constants"
+import { Doctors, GenderOptions } from "@/constants"
 import { Label } from "../ui/label"
+import { SelectItem } from "../ui/select"
+import Image from "next/image"
 
 
 const RegisterForm = ({user}: {user: User}) => {
@@ -58,6 +60,7 @@ const RegisterForm = ({user}: {user: User}) => {
         <CustomFormField 
           fieldType={FormFieldType.Input}
           control={form.control} 
+          className="xl:w-full"
           name="name"
           placeholder="John Doe"
           iconSrc="/assets/icons/user.svg"
@@ -67,7 +70,6 @@ const RegisterForm = ({user}: {user: User}) => {
             <CustomFormField 
               fieldType={FormFieldType.Input}
               control={form.control} 
-              className="xl:w-1/2"
               name="email"
               label="Email"
               placeholder="jhondoe@allan.com"
@@ -77,7 +79,6 @@ const RegisterForm = ({user}: {user: User}) => {
             <CustomFormField 
               fieldType={FormFieldType.Phone_Input}
               control={form.control} 
-              className="xl:w-1/2"
               name="phone"
               label="Phone Number"
               placeholder="(555) 123-4567"
@@ -89,7 +90,6 @@ const RegisterForm = ({user}: {user: User}) => {
             <CustomFormField 
               fieldType={FormFieldType.Date_Picker}
               control={form.control} 
-              className="xl:w-1/2"
               name="birthDate"
               label="Date of Birth"
             />
@@ -98,7 +98,6 @@ const RegisterForm = ({user}: {user: User}) => {
               control={form.control} 
               name="gender"
               label="Gender"
-              className="xl:w-1/2"
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               renderSkeleton={(field: any) => (
                   <FormControl>
@@ -128,7 +127,6 @@ const RegisterForm = ({user}: {user: User}) => {
             <CustomFormField 
               fieldType={FormFieldType.Input}
               control={form.control} 
-              className="xl:w-1/2"
               name="address"
               label="Address"
               placeholder="14th Street, New York"
@@ -136,7 +134,6 @@ const RegisterForm = ({user}: {user: User}) => {
             <CustomFormField 
               fieldType={FormFieldType.Input}
               control={form.control}
-              className="xl:w-1/2"
               name="occupation"
               label="Occupation"
               placeholder="Software Engineer"
@@ -147,7 +144,6 @@ const RegisterForm = ({user}: {user: User}) => {
           <CustomFormField 
             fieldType={FormFieldType.Input}
             control={form.control} 
-            className="xl:w-1/2"
             name="emergencyContactName"
             label="Emergency Contact Name"
             placeholder="Guardian's Name"
@@ -155,7 +151,6 @@ const RegisterForm = ({user}: {user: User}) => {
           <CustomFormField 
             fieldType={FormFieldType.Phone_Input}
             control={form.control}
-            className="xl:w-1/2"
             name="emergencyContactNumber"
             label="Emergency Contact Number"
             placeholder="(555) 123-4567"
@@ -167,6 +162,32 @@ const RegisterForm = ({user}: {user: User}) => {
                 <h2 className="sub-header">Medical Information</h2>
             </div>
         </section>
+
+        <CustomFormField 
+            fieldType={FormFieldType.Select}
+            control={form.control}
+            className="xl:w-full"
+            name="primaryPhysician"
+            label="Primary Physician"
+            placeholder="Select a Physician"
+          >
+            {Doctors.map((doctor) => (
+              <SelectItem key={doctor.name} value={doctor.name}>
+                <div className="flex cursour-pointer items-center gap-2">
+                  <Image
+                    src={doctor.image}
+                    alt={doctor.name}
+                    width={32}
+                    height={32}
+                    className="rounded-full border border-dark-500"
+                  />
+                  <p>
+                    {doctor.name}
+                  </p>
+                </div>
+              </SelectItem>
+            ))}
+        </CustomFormField>
         <div className="flex flex-col gap-6 xl:flex-row">
         </div>
         <div className="flex flex-col gap-6 xl:flex-row">
