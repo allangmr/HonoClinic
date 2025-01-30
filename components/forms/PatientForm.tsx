@@ -59,6 +59,7 @@ const PatientForm = () => {
         <CustomFormField 
           fieldType={FormFieldType.Input}
           control={form.control} 
+          className="xl:w-full"
           name="name"
           label="Full Name"
           placeholder="John Doe"
@@ -67,7 +68,8 @@ const PatientForm = () => {
         />
         <CustomFormField 
           fieldType={FormFieldType.Input}
-          control={form.control} 
+          control={form.control}
+          className="xl:w-full" 
           name="email"
           label="Email"
           placeholder="jhondoe@allan.com"
@@ -76,7 +78,8 @@ const PatientForm = () => {
         />
         <CustomFormField 
           fieldType={FormFieldType.Phone_Input}
-          control={form.control} 
+          control={form.control}
+          className="xl:w-full"
           name="phone"
           label="Phone Number"
           placeholder="(555) 123-4567"

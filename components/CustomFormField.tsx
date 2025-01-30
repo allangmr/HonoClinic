@@ -17,6 +17,7 @@ import PhoneInput from 'react-phone-number-input'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Select, SelectContent, SelectValue, SelectTrigger } from "./ui/select"
+import { Textarea } from "./ui/textarea"
 interface CustomProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     control: Control<any>,
@@ -108,6 +109,16 @@ const RenderField = ({field, props} : {field: { value: string; onChange: (value:
                         {props.children}
                     </SelectContent>
                 </Select>
+            </FormControl>
+        )
+        case FormFieldType.Textarea: return (
+            <FormControl>
+                <Textarea 
+                    placeholder={placeholder} 
+                    {...field}
+                    className="shad-textArea"
+                    disabled={props.disabled}
+                />
             </FormControl>
         )
         default:
