@@ -37,8 +37,6 @@ interface CustomProps {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RenderField = ({field, props} : {field: { value: string; onChange: (value: any) => void; name: string; }; props: CustomProps}) => {
-    console.log(field, 'field');
-    
     const {fieldType, iconSrc, iconAlt, placeholder, showTimeSelect, dateFormat, renderSkeleton} = props;
     switch (fieldType) {
         case FormFieldType.Input:
