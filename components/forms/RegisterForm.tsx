@@ -16,6 +16,7 @@ import { Doctors, GenderOptions, IdentificationTypes } from "@/constants"
 import { Label } from "../ui/label"
 import { SelectItem } from "../ui/select"
 import Image from "next/image"
+import FileUploader from "../FileUploader"
 
 
 const RegisterForm = ({user}: {user: User}) => {
@@ -270,12 +271,13 @@ const RegisterForm = ({user}: {user: User}) => {
         <CustomFormField 
           fieldType={FormFieldType.Skeleton}
           control={form.control} 
+          className="xl:w-full"
           name="identificationDocument"
           label="Scanned Copy of Identification Document"
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           renderSkeleton={(field: any) => (
               <FormControl>
-                FileUpload
+                  <FileUploader files={field.value} onChange={field.onChange} />
               </FormControl>
           )}
         />
