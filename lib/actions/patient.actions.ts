@@ -1,25 +1,34 @@
 "use server";
 import { ID, Query } from "node-appwrite"
-import { account, BUCKET_ID, DATABASE_ID, databases, ENDPOINT, PATIENT_COLLECTION_ID, PROJECT_ID, storage, users } from "../appwrite.config"
+import { BUCKET_ID, DATABASE_ID, databases, ENDPOINT, PATIENT_COLLECTION_ID, PROJECT_ID, storage, users } from "../appwrite.config"
 import { parseStringify } from "../utils";
 import { InputFile } from "node-appwrite/file";
 
 
 export const createUser = async (user: CreateUserParams) => {
-    
     try {
-        const newUser = await account.create(ID.unique(), user.email, 'password', user.name);
-        return parseStringify(newUser);
-    } catch (error: unknown) {
-        if(error && typeof error === 'object' && 'code' in error && error.code === 409) {
-            const documents = await users.list([
-                Query.equal('email', user.email)
-            ])
-
-            return documents?.users[0]
-        }
+      const newuser = await users.create(
+        ID.unique(),
+        user.email,
+        user.phone,
+        undefined,
+        user.name
+      );
+  
+      return parseStringify(newuser);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      // Check existing user
+      if (error && error?.code === 409) {
+        const existingUser = await users.list([
+          Query.equal("email", [user.email]),
+        ]);
+  
+        return existingUser.users[0];
+      }
+      console.error("An error occurred while creating a new user:", error);
     }
-}
+  };
 
 export const getUser = async(userId: string) => {
     try {
@@ -46,7 +55,7 @@ export const registerPatient = async({identificationDocument, ...patient} : Regi
             ID.unique(),
             {
                 identificationDocumentId: file?.$id || null,
-                identificationDocumentURL: 
+                identificationDocumentUrl: 
                     `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view?project=${PROJECT_ID}`,
                 ...patient
             }
