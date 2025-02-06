@@ -34,7 +34,6 @@ const RegisterForm = ({user}: {user: User}) => {
 
   async function onSubmit(values: z.infer<typeof PatientFormValidation>) {
     setIsLoading(true);
-
     let formData;
     if(values.identificationDocument && values.identificationDocument.length > 0) {
       const blobFile = new Blob([values.identificationDocument[0]],
@@ -46,13 +45,31 @@ const RegisterForm = ({user}: {user: User}) => {
 
     try {
       const patientData = {
-        ...values,
-        identificationDocument: formData,
         userId: user.$id,
-        birthDate: new Date(values.birthDate)
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        birthDate: new Date(values.birthDate),
+        gender: values.gender,
+        address: values.address,
+        occupation: values.occupation,
+        emergencyContactName: values.emergencyContactName,
+        emergencyContactNumber: values.emergencyContactNumber,
+        primaryPhysician: values.primaryPhysician,
+        insuranceProvider: values.insuranceProvider,
+        insurancePolicyNumber: values.insurancePolicyNumber,
+        allergies: values.allergies,
+        currentMedication: values.currentMedication,
+        familyMedicalHistory: values.familyMedicalHistory,
+        pastMedicalHistory: values.pastMedicalHistory,
+        identificationType: values.identificationType,
+        identificationNumber: values.identificationNumber,
+        identificationDocument: values.identificationDocument
+          ? formData
+          : undefined,
+        privacyConsent: values.privacyConsent,
       }
-
-      // @ts-expect-error - FormData type mismatch with identificationDocument field in patientData
+      setIsLoading(false);
       const patient = await registerPatient(patientData);
       if(patient) router.push(`/patients/${user.$id}/new-appointment`);
     } catch (error) {
