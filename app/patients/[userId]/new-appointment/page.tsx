@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const NewAppointment = async ({params}: SearchParamProps) => {
   // Access userId directly from params
-  const { userId } = await params
+  const { userId } = await params;
   const patient = await getPatient(userId);
   if (!patient) return null;
   return (
