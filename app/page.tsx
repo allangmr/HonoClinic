@@ -1,10 +1,14 @@
 import PatientForm from "@/components/forms/PatientForm";
+import PassKeyModal from "@/components/PassKeyModal";
 import Image from "next/image";
 import Link from "next/link";
-export default function Home() {
+const Home = async ({searchParams}: SearchParamProps) => {
+  const {admin} = await searchParams
+  const isAdmin = admin === "true";
   return (
     <div className="flex h-screen max-h-screen">
       {/* TODO: OTP Verification | Pass Key Modal */}
+      {isAdmin && <PassKeyModal />}
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
           <Image src="/assets/icons/logo-full.svg" alt="HonoClinic Logo" width={1000} height={1000} className="mb-12 h-10 w-fit" />
@@ -21,3 +25,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
