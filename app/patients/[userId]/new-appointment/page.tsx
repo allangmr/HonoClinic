@@ -16,9 +16,11 @@ const NewAppointment = async ({params}: SearchParamProps) => {
             type="create" 
             userId= {userId} 
             patientId={patient.$id} />
-            <p className="justify-items-end text-dark-600 xl:text-left">
+
+            <p className="mt-10 py-12 text-left text-dark-700 text-sm border-t border-dark-100">
                 © 2025 HonoClinic
             </p>
+
         </div>
       </section>
       <Image src="/assets/images/appointment-img.png" height={1000} width={1000} alt="appointment" className="side-img max-w-[390px] bg-bottom" />
