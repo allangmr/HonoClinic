@@ -26,7 +26,24 @@ const Admin = () => {
             <p className='text-dark-700'>Start the day with managing new appointments</p>
           </section>
           <section className='admin-stat'>
-            <StatCard />
+            <StatCard 
+              type="appointments" 
+              count={5} 
+              label="Scheduled Appointments"
+              icon="/assets/icons/appointment.svg"
+            />
+            <StatCard 
+              type="pending" 
+              count={5} 
+              label="Pending Appointments"
+              icon="/assets/icons/pending.svg"
+            />
+            <StatCard 
+              type="cancelled" 
+              count={5} 
+              label="Cancelled Appointments"
+              icon="/assets/icons/cancelled.svg"
+            />
           </section>
         </main>
     </div>
