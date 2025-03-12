@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react"
+import StatusBadge from "../StatusBadge"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -34,6 +35,11 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ row }) => (
+      <div className="min-w-[115px]">
+        <StatusBadge />
+      </div>
+    )
   },
   {
     accessorKey: "email",
