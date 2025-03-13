@@ -16,9 +16,10 @@ import StatusBadge from "../StatusBadge"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Payment = {
+  patient: { name: string }
   id: string
   amount: number
-  status: "pending" | "processing" | "success" | "failed"
+  status: "pending" | "scheduled" | "cancelled"
   email: string
 }
 
@@ -37,7 +38,7 @@ export const columns: ColumnDef<Payment>[] = [
     header: "Status",
     cell: ({ row }) => (
       <div className="min-w-[115px]">
-        <StatusBadge />
+        <StatusBadge status={row.original.status} />
       </div>
     )
   },
