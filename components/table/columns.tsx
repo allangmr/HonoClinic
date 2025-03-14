@@ -13,6 +13,8 @@ import {
 import { MoreHorizontal } from "lucide-react"
 import StatusBadge from "../StatusBadge"
 import { formatDateTime } from "@/lib/utils"
+import { Doctors } from "@/constants"
+import Image from "next/image"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -23,6 +25,7 @@ export type Payment = {
   status: "pending" | "scheduled" | "cancelled"
   email: string
   schedule: string
+  primaryPhysician: string
 }
 
 export const columns: ColumnDef<Payment>[] = [
@@ -54,16 +57,18 @@ export const columns: ColumnDef<Payment>[] = [
     ),
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "primaryPhysician",
+    header: 'Doctor',
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
- 
-      return <div className="text-right font-medium">{formatted}</div>
+      const doctor = Doctors.find(doctor => doctor.name === row.original.primaryPhysician)
+      return (
+        <div className="flex items-center gap-3">
+          <Image src={doctor?.image || '/admin.png'} alt={doctor?.name || 'Doctor'} width={100} height={100} className="size-8" />
+          <p className="whitespace-nowrap">
+            Dr. {doctor?.name}
+          </p>
+        </div>
+      )
     },
   },
   {
