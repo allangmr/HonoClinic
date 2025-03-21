@@ -68,7 +68,8 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => { 
       return (
         <div className="flex gap-1">
-          <AppointmentModal />
+          <AppointmentModal type="schedule" />
+          <AppointmentModal type="cancel" />
         </div>
       )
     },
