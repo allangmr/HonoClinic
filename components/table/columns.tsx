@@ -65,11 +65,21 @@ export const columns: ColumnDef<Payment>[] = [
   {
     id: "actions",
     header: () => <div className="pl-4">Actions</div>,
-    cell: ({ row }) => { 
+    cell: ({ row : {original: data} }) => { 
       return (
         <div className="flex gap-1">
-          <AppointmentModal type="schedule" />
-          <AppointmentModal type="cancel" />
+          <AppointmentModal 
+            type="schedule"
+            patientId={data.patient.$id}
+            userId={data.userId}
+            appointmentId={data}
+          />
+          <AppointmentModal 
+            type="cancel"
+            patientId={data.patient.$id}
+            userId={data.userId}
+            appointmentId={data}
+          />
         </div>
       )
     },

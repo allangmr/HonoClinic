@@ -10,8 +10,21 @@ import {
   } from "@/components/ui/dialog"
 import { useState } from "react";
 import { Button } from "./ui/button";
+import { Appointment } from "@/types/appwrite.types";
+import AppointmentForm from "./forms/AppointmentForm";
 
-const AppointmentModal = ({ type }: { type: 'schedule' | 'cancel' }) => {
+const AppointmentModal = ({ 
+    type,
+    patientId,
+    userId,
+    appointment,
+  } : { 
+    type: 'schedule' | 'cancel',
+    patientId: 'string',
+    userId: 'string',
+    appointment?: Appointment,
+
+  }) => {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -27,6 +40,9 @@ const AppointmentModal = ({ type }: { type: 'schedule' | 'cancel' }) => {
                 Please fill in the following details to {type} an appointment.
             </DialogDescription>
             </DialogHeader>
+            <AppointmentForm
+
+            />
         </DialogContent>
     </Dialog>
   )
