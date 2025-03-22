@@ -127,6 +127,7 @@ const AppointmentForm = ({userId, patientId, type}: {
                 <CustomFormField 
                     fieldType={FormFieldType.Date_Picker}
                     control={form.control} 
+                    className="xl:w-full"
                     name="schedule"
                     label="Expected appointment date"
                     showTimeSelect
