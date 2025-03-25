@@ -13,7 +13,7 @@ import { FormFieldType } from "./PatientForm"
 import { Doctors } from "@/constants"
 import { SelectItem } from "../ui/select"
 import Image from "next/image"
-import { createAppointment } from "@/lib/actions/appointment.actions"
+import { createAppointment, updateAppointment } from "@/lib/actions/appointment.actions"
 import { Appointment } from "@/types/appwrite.types"
 
 const AppointmentForm = ({userId, patientId, type, appointment, setOpen}: {
@@ -70,9 +70,11 @@ const AppointmentForm = ({userId, patientId, type, appointment, setOpen}: {
           router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`);
         }
       } else {
+        if (!appointment?.$id) return;
+        
         const appointmentToUpdate = {
           userId,
-          appointmentId: appointment?.$id,
+          appointmentId: appointment.$id,
           appointment: {
             primaryPhysician: appointment?.primaryPhysician,
             schedule: new Date(values?.schedule),
@@ -80,6 +82,12 @@ const AppointmentForm = ({userId, patientId, type, appointment, setOpen}: {
             cancellationReason: values.cancellationReason,
           },
           type
+        }
+
+        const updatedAppointment = await updateAppointment(appointmentToUpdate);
+        if(updatedAppointment) {
+          if(setOpen) setOpen(false);
+          form.reset();
         }
       }
     } catch (error) {
