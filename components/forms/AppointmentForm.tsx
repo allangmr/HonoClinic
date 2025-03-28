@@ -33,7 +33,7 @@ const AppointmentForm = ({userId, patientId, type, appointment, setOpen}: {
       schedule: appointment ? new Date(appointment.schedule) : new Date(),
       reason: appointment ? appointment.reason : "",
       note: appointment ? appointment.note : "",
-      cancellationReason: appointment ? appointment.cancellationReason : "",
+      cancellationReason: appointment?.cancellationReason ?? "",
     },
   })
 
