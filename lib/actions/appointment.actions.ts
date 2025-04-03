@@ -86,8 +86,7 @@ export const updateAppointment = async({appointmentId, userId, appointment, type
 
         // SMS notification
         const smsMessage = `Hi, its Honomedics. 
-            ${type === 'scheduled' ? `Your appointment has been scheduled for ${formatDateTime(appointment.schedule!)}.` : `Your appointment has been cancelled. Reason: ${appointment.cancellationReason}`}
-            Your appointment has been ${type} successfully. Please check your dashboard for more details.`;
+            ${type === 'schedule' ? `Your appointment has been scheduled for ${formatDateTime(appointment.schedule!).dateTime} with Dr. ${appointment.primaryPhysician}.` : `Your appointment has been cancelled. Reason: ${appointment.cancellationReason}`}`;
         await sendSMSNotification(userId, smsMessage);
         revalidatePath('/admin');
         return parseStringify(updatedAppointment);
