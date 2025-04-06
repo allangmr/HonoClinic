@@ -46,7 +46,7 @@ const PassKeyModal = () => {
       setOpen(false);
       router.push("/admin")
     } else {
-      setError("Invalid passkey. Please try again.")
+      setError("Invalid Passkey. Please Try Again.")
     }
   }
   const closeModal = () => {
